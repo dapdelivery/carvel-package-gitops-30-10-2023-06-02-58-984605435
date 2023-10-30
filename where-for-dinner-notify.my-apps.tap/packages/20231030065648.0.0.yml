@@ -1,0 +1,33 @@
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: Package
+metadata:
+  name: where-for-dinner-notify.my-apps.tap.20231030065648.0.0+build.02e9424
+spec:
+  refName: where-for-dinner-notify.my-apps.tap
+  version: 20231030065648.0.0+build.02e9424
+  releaseNotes: |
+    Release v20231030065648.0.0+build.02e9424 of package where-for-dinner-notify.my-apps.tap
+  template:
+    spec:
+      fetch:
+      - imgpkgBundle:
+          image: dev.registry.tanzu.vmware.com/tanzu-application-platform/ci-pipeline/apps-30-10-2023-06-02-58-984605435/where-for-dinner-notify-my-apps-bundle@sha256:081bf8c859b50491debf85b02bd1b6260d7a789f735a405d887d2cfc4a6e443d
+      template:
+      - ytt:
+          paths:
+          - .
+      - kbld:
+          paths:
+          - .imgpkg/images.yml
+          - '-'
+      deploy:
+      - kapp: {}
+  valuesSchema:
+    openAPIv3:
+      type: object
+      additionalProperties: false
+      properties:
+        workload_name:
+          type: string
+          default: ""
+
